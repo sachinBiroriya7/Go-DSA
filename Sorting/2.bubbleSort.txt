@@ -1,0 +1,76 @@
+Bubble sort :
+
+comparision between adjacent elements are made and the greater one is moved to right (by swapping), making the last element greatest in each itration.
+in each iteration they last element is sorted, hence during the comparision for swapping we do not neeed to traverse over the sorted array at they right side
+
+i loop for keeping count of how may elements are sorted.
+j loop for comparing the adjacent elements and swapping if required.
+
+this can be further optimised if we add a flag swapped, which can decrease the time complexity by some extent 
+If no two elements were swapped by inner loop, then break (code below )
+
+example :
+
+comparision is between [j] and [j+1], i loop is for iteration which keeps track of how many large elements are sorted.
+
+1st iteration (when i=0) and j will to go (n-1-i)=4
+{51, 411, 32, 21, 1}
+	j=0 -> {51, 411, 32, 21, 1}
+	j=1 -> {51, 32, 411, 21, 1}
+	j=2 -> {51, 32, 21, 411, 1}
+	j=3 -> {51, 32, 21, 1, 411}
+	
+i=n-1 -> last element has the largest element of the list hence sorted
+	
+	
+2nd iteration (when i=1) and j will to go (n-1-i)=3
+{51, 32, 21, 1, 411}
+	j=0 -> {32, 51, 21, 1, 411}
+	j=1 -> {32, 21, 51, 1, 411}
+	j=2 -> {32, 21, 1, 51, 411}
+i=n, n-1 -> has the largest element of the list hence sorted
+
+	
+3rd iteration (when i=2) and j will to go (n-1-i)=1
+{32, 21, 1, 51, 411}
+	j=0 -> {21, 32, 1, 51, 411}
+	j=1 -> {1, 21, 32, 51, 411}
+
+i=n,n-1,n-2 -> have the larget element of the list hence sorted
+
+
+4th iteration (when i=3) and j will to go (n-1-i)=0
+{1, 21, 32, 51, 411}	
+	j=0 -> {1, 21, 32, 51, 411}
+	
+
+i=n,n-1,n-2,n-3 -> have the larget element of the list hence sorted
+
+
+-*******************************************************************************------
+
+func bubbleSort(arr [5]int, size int) [5]int {
+	swapped := false
+	for i := 0; i < size-1; i++ {
+		fmt.Println("Here i =", i)
+		for j := 0; j < size-1-i; j++ {
+			fmt.Println("when j =", j, " and j+1 = ", j+1)
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = swap(arr[j], arr[j+1])
+				fmt.Println("swapped  =", arr[j], arr[j+1])
+				swapped = true
+			}
+			fmt.Println("swap =", swapped)
+			fmt.Println("arr=")
+			printlist(arr)
+			fmt.Println("-----------------")
+
+		}
+		if swapped == false {
+			break
+		}
+
+	}
+
+	return arr
+}
